@@ -1,0 +1,148 @@
+{
+  "name": "repo-repos-flare-floss-testfiles",
+  "root": "repos/flare-floss-testfiles",
+  "projectType": "library",
+  "targets": {
+    "status": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "git -C repos/flare-floss-testfiles status --short || true"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "fetch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "git -C repos/flare-floss-testfiles fetch --all --prune || true"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "log": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "git -C repos/flare-floss-testfiles log --oneline -10 || true"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "manifests": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "find repos/flare-floss-testfiles \\( -name package.json -o -name pyproject.toml -o -name Cargo.toml -o -name go.mod -o -name setup.py \\) -not -path '*/node_modules/*' -not -path '*/testdata/*' -not -path '*/fixtures/*' -print | sort"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "go-test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && go test ./... || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "go-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && go build ./... || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "go-vet": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && go vet ./... || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "go-mod-tidy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && go mod tidy || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "security-go": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && govulncheck ./... || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "rust-test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && cargo test || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "rust-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && cargo build || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "rust-clippy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && cargo clippy --all-targets --all-features || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "rust-fmt": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && cargo fmt --check || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "security-rust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'cd repos/flare-floss-testfiles && cargo audit || true'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    },
+    "security": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sh -lc 'printf \"security targets: security-go security-rust\\n\"'"
+      },
+      "metadata": {
+        "supervisorRequired": true
+      }
+    }
+  },
+  "tags": [
+    "scope:repos",
+    "type:subrepo",
+    "lang:go",
+    "lang:rust"
+  ]
+}
